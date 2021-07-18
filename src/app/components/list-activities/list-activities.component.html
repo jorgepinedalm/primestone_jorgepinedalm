@@ -25,13 +25,20 @@
           <div class="col-lg-4">
               <h3 class="h4 text-center p-2 pb-3 bg-info text-white rounded">Nueva</h3>
               <div id="requested">
-
+                <!-- <div cdkDrop #new="cdkDrop" 
+                    [cdkDropData]="newItems" 
+                    [cdkDropConnectedTo]="[active]"    
+                    (cdkDropDropped)="dropped($event)"
+                >
+                    <div *ngFor="let item of newItems" cdkDrag> {{ item }} </div>
+                </div> -->
+                
               </div>
           </div>
           <div class="col-lg-4">
             <h3 class="h4 text-center  p-2 pb-3 bg-primary text-white rounded">En progreso</h3>
             <div id="inProgress">
-                  
+                
             </div>
           </div>
           <div class="col-lg-4">
@@ -41,4 +48,47 @@
             </div>
           </div>
       </div>
+
+      <div cdkDropListGroup>
+        <div class="example-container">
+          <h2>To do</h2>
+      
+          <div
+            cdkDropList
+            [cdkDropListData]="todo"
+            class="example-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
+          </div>
+        </div>
+
+        <div class="example-container">
+            <h2>In progress</h2>
+        
+            <div
+              cdkDropList
+              [cdkDropListData]="inProgress"
+              class="example-list"
+              (cdkDropListDropped)="drop($event)">
+              <div class="example-box" *ngFor="let item of inProgress" cdkDrag>{{item}}</div>
+            </div>
+          </div>
+      
+        <div class="example-container">
+          <h2>Done</h2>
+      
+          <div
+            cdkDropList
+            [cdkDropListData]="done"
+            class="example-list"
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+          </div>
+        </div>
+      </div>
+      {{todo | json}}
+      <br>
+      {{inProgress | json}}
+      <br>
+      {{done | json}}
   </div>

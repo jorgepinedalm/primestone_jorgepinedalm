@@ -6,6 +6,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,7 +40,8 @@ import { ListActivitiesComponent } from './components/list-activities/list-activ
     AngularFireModule.initializeApp(environment.firebaseCredentials),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DragDropModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
