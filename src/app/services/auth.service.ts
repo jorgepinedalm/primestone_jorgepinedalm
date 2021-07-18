@@ -19,6 +19,7 @@ export class AuthService {
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
+    
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
@@ -31,6 +32,7 @@ export class AuthService {
     })
     this.token = '';
   }
+
   getToken() {
     firebase.auth().currentUser?.getIdToken().then(
       (token: string) => {
@@ -41,7 +43,11 @@ export class AuthService {
     return this.token;
  }
 
-   // Sign in with email/password
+   /**
+    * Sign in with email/password. Redirect to list of activities
+    * @param email user email
+    * @param password user password
+    */
    SignIn(email : string, password : string) {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
@@ -57,8 +63,12 @@ export class AuthService {
         window.alert(error.message)
       })
   }
-
-  // Sign up with email/password
+  
+  /**
+   * Sign up with email/password
+   * @param email user email to register
+   * @param password user password to register
+   */
   SignUp(email:string, password:string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
@@ -72,7 +82,9 @@ export class AuthService {
       })
   }
 
-  // Send email verfificaiton when new user sign up
+  /**
+   * Send email verfificaiton when new user sign up 
+   */
   SendVerificationMail() {
     return this.afAuth.currentUser.then(u => u?.sendEmailVerification())
     .then(() => {
@@ -80,25 +92,25 @@ export class AuthService {
     })
   }
 
-  // Reset Forggot password
+  /**
+   * Reset Forggot password
+   * @param passwordResetEmail user email to send reset password email
+   */
   ForgotPassword(passwordResetEmail:string) {
     return this.afAuth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
-      window.alert('Password reset email sent, check your inbox.');
+      window.alert('Email de restablecimiento de contraseña enviado, revisa tu bandeja de entrada.');
     }).catch((error) => {
       window.alert(error)
     })
   }
 
-  // Returns true when user is looged in and email is verified
+  /**
+   * Returns true when user is looged in and email is verified
+   */
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     return (user !== null && user.emailVerified !== false) ? true : false;
-  }
-
-  // Sign in with Google
-  GoogleAuth() {
-    return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
 
   // Auth logic to run auth providers

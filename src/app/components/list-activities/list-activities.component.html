@@ -1,4 +1,44 @@
-<a class="btn btn-link" (click)="signOut()">
-    <i class="fas fa-sign-out-alt"></i>Cerrar sesión
-  </a>
-<p>list-activities works!</p>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><strong>PrimeStone test</strong></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          </li>
+         
+        </ul>
+        <div class="d-flex">
+          <button class="btn btn-outline-light" type="button" (click)="signOut()">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <div class="container py-3">
+      <div class="text-center" *ngIf="user">Hola, {{user?.email}}</div>
+      <h2 class="h3 fw-bolder text-center">Table de actividades</h2>
+      <div class="row">
+          <div class="col-lg-4">
+              <h3 class="h4 text-center p-2 pb-3 bg-info text-white rounded">Nueva</h3>
+              <div id="requested">
+
+              </div>
+          </div>
+          <div class="col-lg-4">
+            <h3 class="h4 text-center  p-2 pb-3 bg-primary text-white rounded">En progreso</h3>
+            <div id="inProgress">
+                  
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <h3 class="h4 text-center p-2 pb-3 bg-success text-white rounded">Terminada</h3>
+            <div id="done">
+                  
+            </div>
+          </div>
+      </div>
+  </div>

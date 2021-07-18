@@ -17,6 +17,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 import { AuthService } from "src/app/services/auth.service";
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
+import { ListActivitiesComponent } from './components/list-activities/list-activities.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { LoginComponent } from './components/login/login.component';
     LoginComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ListActivitiesComponent
   ],
   imports: [
     BrowserModule,

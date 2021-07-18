@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,7 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ListActivitiesComponent implements OnInit {
 
-  constructor(public authService: AuthService) { }
+  user : User | undefined;
+
+  constructor(public authService: AuthService) { 
+    this.user = authService.userData;
+  }
 
   ngOnInit(): void {
   }
