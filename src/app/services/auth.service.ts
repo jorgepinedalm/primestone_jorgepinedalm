@@ -10,6 +10,7 @@ import { User } from '../models/user';
 })
 export class AuthService {
   userData: any; // Save logged in user data
+  token: string;
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
@@ -28,11 +29,26 @@ export class AuthService {
         JSON.parse(localStorage.getItem('user') || '{}');
       }
     })
+    this.token = '';
   }
+  getToken() {
+    firebase.auth().currentUser?.getIdToken().then(
+      (token: string) => {
+        this.token = token;
+      }
+    )
+    console.log(this.token);
+    return this.token;
+ }
+
    // Sign in with email/password
    SignIn(email : string, password : string) {
     return this.afAuth.signInWithEmailAndPassword(email, password)
       .then((result) => {
+        firebase.auth().currentUser?.getIdToken().then(
+          (token: string) => this.token = token
+        )
+        this.getToken();
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         });
@@ -46,6 +62,7 @@ export class AuthService {
   SignUp(email:string, password:string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        debugger;
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
         this.SendVerificationMail();
@@ -105,8 +122,9 @@ export class AuthService {
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      firstname: user.firstname,
-      lastname: user.lastname
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified
     }
     return userRef.set(userData, {
       merge: true
@@ -117,7 +135,9 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
+      this.token = '';
       this.router.navigate(['login']);
     })
   }
+
 }

@@ -5,12 +5,13 @@ import { ListActivitiesComponent } from './components/list-activities/list-activ
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: SignUpComponent },
-  { path: 'dashboard', component: ListActivitiesComponent },
+  { path: 'dashboard', component: ListActivitiesComponent, canActivate: [AuthGuard] },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email-address', component: VerifyEmailComponent }
 ];

@@ -1,11 +1,10 @@
 import { Activity } from "./activity";
 
 export interface User {
-    uid?: string;
-    firstname? : string;
-    lastname? : string;
-    email? : string;
+    uid: string;
+    email: string;
+    displayName: string;
+    photoURL: string;
+    emailVerified: boolean;
     password? : string;
-    activities? : Activity[];
-
-}
+ }

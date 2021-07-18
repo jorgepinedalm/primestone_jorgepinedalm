@@ -10,7 +10,9 @@ import { AuthService } from 'src/app/services/auth.service';
 
 export class LoginComponent implements OnInit {
 
-  user : User = { email : undefined, password : undefined };
+  email: string | undefined;
+  password :string | undefined;
+  
   constructor(public authService: AuthService) { 
 
   }
@@ -19,6 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(form:any){
+    console.log(form); return;
     this.authService.SignIn(form.email, form.password)
   }
 
