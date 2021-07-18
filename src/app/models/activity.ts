@@ -1,6 +1,7 @@
 import { User } from "./user";
 
-export class Activity {
+export interface Activity {
+    uid?: string;
     title? : string;
     description? : string;
     status? : StatusActivity;

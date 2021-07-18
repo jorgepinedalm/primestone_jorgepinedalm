@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebaseCredentials : {
-    apiKey: 'AIzaSyCyVsoJhuRNVKgGD8YW6sB01luHNKXcUpk',
-    authDomain: 'primestonetest-jlpm.firebaseapp.com',
-    databaseURL: 'https://primestonetest-jlpm-default-rtdb.firebaseio.com',
-    projectId: 'primestonetest-jlpm',
-    storageBucket: 'primestonetest-jlpm.appspot.com',
-    messagingSenderId: '917447659240',
+    apiKey: "AIzaSyCyVsoJhuRNVKgGD8YW6sB01luHNKXcUpk",
+    authDomain: "primestonetest-jlpm.firebaseapp.com",
+    databaseURL: "https://primestonetest-jlpm-default-rtdb.firebaseio.com",
+    projectId: "primestonetest-jlpm",
+    storageBucket: "primestonetest-jlpm.appspot.com",
+    messagingSenderId: "917447659240",
     appId: "1:917447659240:web:d342d31e31e4ee0b51035d"
-    }
+  }
 };
 
 /*

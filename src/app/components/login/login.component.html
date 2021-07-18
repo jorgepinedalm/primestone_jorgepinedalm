@@ -1,20 +1,40 @@
 <div class="container">
     <div class="py-4">
-        <form>
-            <div class="mb-3">
-              <label for="email_user" class="form-label">Correo electrónico</label>
-              <input type="email" class="form-control" id="email_user" placeholder="Ej: usuario@email.com">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-xl-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h1 class="h3 fw-bold">Inicio de sesión</h1>
+                        <hr>
+                        <form #signInForm="ngForm" (ngSubmit)="submit(signInForm.value)">
+                            <div class="mb-3">
+                              <label for="email_user" class="form-label">Correo electrónico</label>
+                              <input type="email" class="form-control" id="email_user" name="email" required [(ngModel)]="user.email" placeholder="Ej: usuario@email.com">
+                            </div>
+                            <div class="mb-3">
+                              <label for="password_user" class="form-label">Contraseña</label>
+                              <input type="password" class="form-control" id="password_user" name="password" required [(ngModel)]="user.password" placeholder="Ingrese su contraseña">
+                            </div>
+                            <div class="mb-3 form-check">
+                              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                              <label class="form-check-label" for="exampleCheck1">Recordar cuenta</label>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success text-uppercase fw-bold shadow-sm mb-3">Enviar</button>
+                            </div>
+                            
+                        </form>
+                        <div class="forgotPassword text-center">
+                            <a routerLink="/forgot-password">¿Olvido su contraseña?</a>
+                        </div>
+                        <div class="redirectToLogin text-center">
+                            <span>¿No tienes una cuenta? <a class="redirect" routerLink="/register-user"> Registrese</a></span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3">
-              <label for="password_user" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" id="password_user" placeholder="Ingrese su contraseña">
-            </div>
-            <div class="mb-3 form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck1">
-              <label class="form-check-label" for="exampleCheck1">Recordar cuenta</label>
-            </div>
-            <button type="submit" class="btn btn-success">Enviar</button>
-        </form>
+        </div>
+        
     </div>
     
 </div>
