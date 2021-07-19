@@ -1,3 +1,7 @@
+# Prueba Jorge Luis Pineda Montagut
+
+Repositorio para presentar prueba de primestone. Se utilizó firebase para backend y npm's para permitir drang and drop de actividades. Dentro del proyecto angular se crearon componentes, servicios, modelos, archivo de rutas, entre otros archivos. Se hicieron cambios progresivamente almacenando los cambios en este repositorio.
+
 # Primestone
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.2.
