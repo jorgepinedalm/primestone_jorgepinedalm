@@ -5,11 +5,12 @@ export interface Activity {
     title? : string;
     description? : string;
     status? : StatusActivity;
-    created_user? : User;
+    uid_user? : string;
+    user? : User;
 }
 
 export enum StatusActivity {
-    Nueva = 1,
-    EnProgreso,
-    Terminada
+    Nueva = 'Nueva',
+    EnProgreso = 'En Progreso',
+    Terminada = 'Terminada'
 }

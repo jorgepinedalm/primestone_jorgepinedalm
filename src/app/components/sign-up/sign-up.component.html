@@ -6,14 +6,18 @@
                     <div class="card-body">
                         <h1 class="h3 fw-bold">Registro de usuario</h1>
                         <hr>
-                        <form #signInForm="ngForm" (ngSubmit)="submit(signInForm.value)">
+                        <form #signInForm="ngForm" (ngSubmit)="submit(signInForm)">
+                            <div class="mb-3">
+                                <label for="email_user" class="form-label">Nombre de usuario</label>
+                                <input type="email" class="form-control" id="name_user" name="displayName" required maxlength="255" [(ngModel)]="displayName" placeholder="Ingrese un nombre de usuario">
+                            </div>
                             <div class="mb-3">
                               <label for="email_user" class="form-label">Correo electrónico</label>
-                              <input type="email" class="form-control" id="email_user" name="email" required maxlength="255" #email placeholder="Ej: usuario@email.com">
+                              <input type="email" class="form-control" id="email_user" name="email" required maxlength="255" [(ngModel)]="email" placeholder="Ej: usuario@email.com">
                             </div>
                             <div class="mb-3">
                               <label for="password_user" class="form-label">Contraseña</label>
-                              <input type="password" class="form-control" id="password_user" name="password" required maxlength="255" #password placeholder="Ingrese su contraseña">
+                              <input type="password" class="form-control" id="password_user" name="password" required maxlength="255" [(ngModel)]="password" placeholder="Ingrese su contraseña">
                             </div>
                                                       
                             <div class="text-center">

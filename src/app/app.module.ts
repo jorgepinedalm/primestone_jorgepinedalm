@@ -19,6 +19,7 @@ import { AuthService } from "src/app/services/auth.service";
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './components/login/login.component';
 import { ListActivitiesComponent } from './components/list-activities/list-activities.component';
+import { TaskService } from './services/task.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import { ListActivitiesComponent } from './components/list-activities/list-activ
     AppRoutingModule,
     DragDropModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

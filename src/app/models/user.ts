@@ -1,10 +1,9 @@
-import { Activity } from "./activity";
-
 export interface User {
     uid: string;
     email: string;
     displayName: string;
     photoURL: string;
     emailVerified: boolean;
+    initials?:string;
     password? : string;
  }

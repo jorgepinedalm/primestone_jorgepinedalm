@@ -1,7 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import firebase from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { User } from '../models/user';
 
@@ -69,14 +69,22 @@ export class AuthService {
    * @param email user email to register
    * @param password user password to register
    */
-  SignUp(email:string, password:string) {
+  SignUp(email:string, password:string, displayName : string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        debugger;
         /* Call the SendVerificaitonMail() function when new user sign 
         up and returns promise */
-        this.SendVerificationMail();
-        this.SetUserData(result.user);
+        result.user?.updateProfile({
+          displayName : displayName
+        }).then(() => {
+          this.SendVerificationMail();
+          this.SetUserData(result.user);
+        }).catch(
+          (err) => {
+          console.log(err);
+        })
+        
+        
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -143,6 +151,11 @@ export class AuthService {
     })
   }
 
+  GetUserData(uidUser:string){
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${uidUser}`);
+    return userRef;
+  }
+
   // Sign out 
   SignOut() {
     return this.afAuth.signOut().then(() => {
@@ -150,6 +163,11 @@ export class AuthService {
       this.token = '';
       this.router.navigate(['login']);
     })
+  } 
+  
+  GetUsers(){
+    const userRef: AngularFirestoreCollection<User> = this.afs.collection('users');
+    return userRef;
   }
 
 }

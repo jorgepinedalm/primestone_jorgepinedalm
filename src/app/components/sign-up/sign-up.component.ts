@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -11,6 +12,7 @@ export class SignUpComponent implements OnInit {
 
   email: string | undefined;
   password :string | undefined;
+  displayName :string | undefined;
 
   constructor(public authService: AuthService) {
    }
@@ -18,8 +20,11 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submit(form:any){
-    this.authService.SignUp(form.email, form.password);
+  submit(form:NgForm){
+    if(form.valid){
+      this.authService.SignUp(form.value.email, form.value.password, form.value.displayName);
+    }
+    
   }
 
 }
