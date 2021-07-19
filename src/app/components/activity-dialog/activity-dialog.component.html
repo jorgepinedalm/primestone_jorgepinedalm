@@ -1,0 +1,31 @@
+<mat-form-field class="w-100">
+    <mat-label>Título</mat-label>
+    <input matInput cdkFocusInitial [(ngModel)]="data.task.title" required/>
+</mat-form-field>
+
+<mat-form-field class="w-100">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput [(ngModel)]="data.task.description" rows="2"></textarea>
+</mat-form-field>
+
+<mat-form-field appearance="fill"  class="w-100">
+    <mat-label>Asignada a</mat-label>
+    <mat-select [(ngModel)]="data.task.user" name="user">
+      <mat-option *ngFor="let u of users" [value]="u">
+        {{u.displayName}} - {{u.email}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div mat-dialog-actions class="text-center justify-content-center">
+    <button mat-button [mat-dialog-close]="{ task: data.task }">OK</button>
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button
+      *ngIf="data.enableDelete"
+      mat-fab
+      color="primary"
+      aria-label="Delete"
+      [mat-dialog-close]="{ task: data.task, delete: true }">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>

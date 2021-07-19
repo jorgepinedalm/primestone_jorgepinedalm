@@ -1,6 +1,7 @@
 import { User } from "./user";
 
 export interface Activity {
+    id:string;
     uid?: string;
     title? : string;
     description? : string;
@@ -14,3 +15,4 @@ export enum StatusActivity {
     EnProgreso = 'En Progreso',
     Terminada = 'Terminada'
 }
+

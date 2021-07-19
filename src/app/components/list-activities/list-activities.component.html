@@ -13,159 +13,69 @@
          
         </ul>
         <div class="d-flex">
+          <span class="navbar-text d-inline-block me-2" *ngIf="user">Hola, {{user.displayName}}</span>
           <button class="btn btn-outline-light" type="button" (click)="signOut()">Cerrar sesión</button>
         </div>
       </div>
     </div>
   </nav>
   <div class="container py-3">
-      <div class="text-center" *ngIf="user">Hola, {{user?.email}}</div>
       <h2 class="h3 fw-bolder text-center">Tablero de actividades</h2>
 
       <div class="text-center">
-        <button type="button" class="btn btn-success shadow mb-3" data-bs-toggle="modal" data-bs-target="#addTaskModal" (click)="openAddTaskModal()">
-            Añadir tarea
+        <button (click)="newTask()" mat-raised-button color="primary" class="mb-3" data-bs-toggle="modal" data-bs-target="#addTaskModal">
+            <mat-icon>add</mat-icon> Nueva tarea
         </button>
       </div>
       
-      <div cdkDropListGroup>
-        <div class="example-container">
-          <h2>Nuevas</h2>
-      
-          <div
-            cdkDropList
-            [cdkDropListData]="todo"
-            class="example-list"
-            id="todo_list"
-            [attr.data-status]="statusActivity.Nueva"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of todo" cdkDrag>
-                <div class="row w-100">
-                    <div class="col">
-                        <strong>{{item.title}}</strong>
-                        <p class="small mb-0">{{item.description}}</p>
-                    </div>
-                    <div class="col-auto">
-                        <div class="circle-name">
-                            <span *ngIf="item.user?.initials">{{item.user?.initials}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="example-container">
-            <h2>En progreso</h2>
+        <div class="row">
+            <div class="col-lg-4">
+                <h2>Nuevas tareas</h2>
         
-            <div
-              cdkDropList
-              [cdkDropListData]="inProgress"
-              class="example-list"
-              id="inProgress_list"
-              [attr.data-status]="statusActivity.EnProgreso"
-              (cdkDropListDropped)="drop($event)">
-                <div class="example-box" *ngFor="let item of inProgress" cdkDrag>
-                    <div class="row w-100">
-                        <div class="col">
-                            <strong>{{item.title}}</strong>
-                            <p class="small mb-0">{{item.description}}</p>
-                        </div>
-                        <div class="col-auto">
-                            <div class="circle-name">
-                                <span *ngIf="item.user?.initials">{{item.user?.initials}}</span>
-                            </div>
-                        </div>
-                    </div>
-                  
-                </div>
+                <mat-card
+                cdkDropList
+                id="todo"
+                #todoList="cdkDropList"
+                [cdkDropListData]="todo | async"
+                [cdkDropListConnectedTo]="[doneList, inProgressList]"
+                (cdkDropListDropped)="drop($event)"
+                class="list">
+                <p class="empty-label" *ngIf="(todo | async)?.length === 0">Lista vacia</p>
+                <app-activity (edit)="editTask('todo', $event)" *ngFor="let task of todo | async" cdkDrag [task]="task"></app-activity>
+                </mat-card>
             </div>
-          </div>
       
-        <div class="example-container">
-          <h2>Terminadas</h2>
-      
-          <div
-            cdkDropList
-            [cdkDropListData]="done"
-            class="example-list"
-            id="done_list"
-            [attr.data-status]="statusActivity.Terminada"
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of done" cdkDrag>
-                <div class="row w-100">
-                    <div class="col">
-                        <strong>{{item.title}}</strong>
-                        <p class="small mb-0">{{item.description}}</p>
-                    </div>
-                    <div class="col-auto">
-                        <div class="circle-name">
-                            <span *ngIf="item.user?.initials">{{item.user?.initials}}</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-4">
+                <h2>En progreso</h2>
+        
+                <mat-card
+                cdkDropList
+                id="inProgress"
+                #inProgressList="cdkDropList"
+                [cdkDropListData]="inProgress | async"
+                [cdkDropListConnectedTo]="[todoList, doneList]"
+                (cdkDropListDropped)="drop($event)"
+                class="list">
+                <p class="empty-label" *ngIf="(inProgress | async)?.length === 0">Lista vacia</p>
+                <app-activity (edit)="editTask('inProgress', $event)" *ngFor="let task of inProgress | async" cdkDrag [task]="task"></app-activity>
+                </mat-card>
             </div>
-          </div>
-        </div>
-      </div>
       
-      <!-- Modal -->
-    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="addTaskModalLabel">Añadir tarea</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-            </div>
-            <form [formGroup]="taskForm" (ngSubmit)="submitTask()" novalidate>
-                <div class="modal-body">
-                    
-                        <div class="mb-3">
-                            <label for="title_task" class="form-label">Título</label>
-                            <input type="text" class="form-control" id="title_task" name="title" formControlName="title" [ngClass]="{ 'is-invalid': (taskForm.controls.submitted || taskForm.controls.title.touched) && taskForm.controls.title.errors }" placeholder="Ingrese el título de la tarea">
-                            <div class="valid-feedback" *ngIf="handleError('title', 'required')">
-                                <div *ngIf="taskForm.controls.title.errors?.required">Fullname is required</div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description_task" class="form-label">Descripción</label>
-                            <textarea class="form-control" id="title_task" name="description" formControlName="description" required rows="2" placeholder="Describa la tarea a ingresar"></textarea>
-                            <div class="valid-feedback" *ngIf="handleError('description', 'required')">
-                                El campo descripción es requerido
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status_task" class="form-label">Estado</label>
-                            <select class="form-control" name="status" formControlName="status" required>
-                                <option [ngValue]="null" disabled>- Seleccione un estado -</option>
-                                <option *ngFor="let status of statusArray" [ngValue]="status">
-                                {{ status }}
-                                </option>
-                            </select> 
-                            <div class="valid-feedback" *ngIf="handleError('description', 'required')">
-                                El campo título es requerido
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="status_task" class="form-label">Usuario</label>
-                            <select class="form-control" name="user" formControlName="user" required>
-                                <option [ngValue]="null" disabled>- Seleccione un usuario -</option>
-                                <option *ngFor="let user of users" [ngValue]="user">
-                                    {{user.initials}} - {{ user.displayName }} - {{ user.email }}
-                                </option>
-                            </select> 
-                            <div class="valid-feedback" *ngIf="handleError('user', 'required')">
-                                El campo usuario es requerido
-                            </div>
-                        </div>
-                    
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">Guardar</button>
-                </div>
-            </form>
+            <div class="col-lg-4">
+                <h2>Terminadas</h2>
+        
+                <mat-card
+                cdkDropList
+                id="done"
+                #doneList="cdkDropList"
+                [cdkDropListData]="done | async"
+                [cdkDropListConnectedTo]="[todoList, inProgressList]"
+                (cdkDropListDropped)="drop($event)"
+                class="list">
+                    <p class="empty-label" *ngIf="(done | async)?.length === 0">Lista vacia</p>
+                    <app-activity (edit)="editTask('done', $event)" *ngFor="let task of done | async" cdkDrag [task]="task"></app-activity>
+                </mat-card>
+            </div>    
         </div>
-        </div>
-    </div>
+      
 </div>

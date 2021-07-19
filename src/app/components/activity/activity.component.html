@@ -1,0 +1,13 @@
+<mat-card class="item" *ngIf="task" (dblclick)="edit.emit(task)">
+    <div class="row w-100">
+        <div class="col">
+            <strong>{{task.title}}</strong>
+            <p class="small mb-0">{{task.description}}</p>
+        </div>
+        <div class="col-auto">
+            <div class="circle-name">
+                <span *ngIf="task.user?.initials">{{task.user?.initials}}</span>
+            </div>
+        </div>
+    </div>
+  </mat-card>

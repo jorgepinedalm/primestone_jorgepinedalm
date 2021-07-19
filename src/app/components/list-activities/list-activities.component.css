@@ -51,16 +51,39 @@
   .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
-  .circle-name{
-    height: 45px;
-    width: 45px;
-    border-radius: 50%;
-    background-color: lightgray;
-    color: #333;
-    font-size: 1.5rem;
-    font-weight:bold;
-    text-align: center;
+  
+  .custom-container-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-around;
   }
+  
+  .custom-container {
+    width: 400px;
+    margin: 0 25px 25px 0;
+  }
+  
+  .custom-list {
+    border: solid 1px #ccc;
+    min-height: 60px;
+    border-radius: 4px;
+  }
+  
+  app-new-task {
+    margin-bottom: 30px;
+  }
+  
+  .empty-label {
+    font-size: 2em;
+    padding-top: 10px;
+    text-align: center;
+    opacity: 0.2;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms;
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
